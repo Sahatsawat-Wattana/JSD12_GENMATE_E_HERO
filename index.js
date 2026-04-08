@@ -20,14 +20,16 @@ class Hero {
   gotattacked(attack) {
     this.hp -= attack;
     console.log(
-      `${this.name} got attacked ${attack} hp. I currently have ${this.hp} hp.`,
+      `${this.name} got attacked ${attack} hp. ${this.name} currently have ${this.hp} hp.`,
     );
   }
   statusNow() {
     if (this.hp <= 0) {
       console.log(`${this.name} is dead`);
     } else {
-      console.log(`${this.name} is alive. ${this.name} currently have ${this.hp} hp. `);
+      console.log(
+        `${this.name} is alive. ${this.name} currently have ${this.hp} hp. `,
+      );
     }
   }
 }
@@ -151,15 +153,69 @@ class Assassin extends Hero {
   }
 }
 
+class Sharpshooter extends Hero {
+  constructor(name, gender, multiverse, hp, attack, maxAmmo) {
+    super(name, gender, multiverse, hp, attack);
+    this.maxAmmo = maxAmmo;
+    this.ammo = maxAmmo;
+    this.isInCover = false;
+  }
+
+  precisionShot(target) {
+    if (this.ammo > 0) {
+      this.ammo -= 1;
+      const damage = this.attack * 2.5;
+      console.log(
+        `[DEADEYE] ${this.name} fires a high-caliber precision shot! (Ammo: ${this.ammo}/${this.maxAmmo})`,
+      );
+      target.gotattacked(damage);
+    } else {
+      console.log(`*Click!* ${this.name}'s weapon is empty! Need to reload.`);
+    }
+  }
+
+  reload() {
+    this.ammo = this.maxAmmo;
+    console.log(
+      `[RELOAD] ${this.name} locks in a fresh magazine. Ammo restored to ${this.maxAmmo}.`,
+    );
+  }
+
+  takeCover() {
+    this.isInCover = true;
+    console.log(
+      `[COVER] ${this.name} rolls behind a barricade, completely breaking line of sight!`,
+    );
+  }
+  gotattacked(attack) {
+    if (this.isInCover) {
+      console.log(
+        `[BLOCKED] The attack shatters the barricade! ${this.name} completely dodges it and takes 0 damage.`,
+      );
+      this.isInCover = false;
+    } else {
+      super.gotattacked(attack);
+    }
+  }
+  statusNow() {
+    super.statusNow();
+    if (this.hp > 0) {
+      console.log(
+        `   -> Ammo: ${this.ammo}/${this.maxAmmo} | Stance: ${this.isInCover ? "In Cover" : "Exposed"}`,
+      );
+    }
+  }
+}
+
 // ==========================================
 // MAIN BATTLE SEQUENCE
 // ==========================================
 
-
 const mage = new Mage("Nami", "Female", "Enchanted Forest", 80, 15, 100);
 const fighter = new Fighter("Marty", "Male", "Julong", 200, 100);
-const tank = new IronTank("Aegis","Male","Edoha", 500, 150,200);
+const tank = new IronTank("Aegis", "Male", "Edoha", 500, 150, 200);
 const assassin = new Assassin("Viper", "Female", "Edoha", 120, 100);
+const sharpshooter = new Sharpshooter("Thomas", "Male", "Julong", 140, 10, 3);
 console.log("\n=== ACT I: THE BRAWL IN THE VOID ===");
 mage.introduce();
 fighter.introduce();
@@ -179,10 +235,10 @@ console.log("\n=== ACT III: WELCOME TO EDOHA ===");
 fighter.shiftMultiverse("Edoha");
 fighter.introduce();
 tank.introduce();
-assassin.introduce()
+assassin.introduce();
 console.log("\n[Aegis blocks the path! Marty attacks!]");
 tank.gotattacked(fighter.attack);
-tank.statusNow()
+tank.statusNow();
 tank.gotattacked(fighter.attack);
 tank.statusNow();
 tank.gotattacked(fighter.attack);
@@ -197,9 +253,23 @@ assassin.hideInShadows();
 console.log("\n[Marty throws a wild punch into the dark!]");
 assassin.gotattacked(fighter.attack);
 assassin.statusNow();
-assassin.gotattacked(fighter.attack);
-assassin.statusNow();
 fighter.statusNow();
-console.log("\n[Marty exhuasted!!]")
-fighter.shiftMultiverse("Julong")
+console.log("\n[Marty exhuasted!!]");
+fighter.shiftMultiverse("Julong");
 fighter.introduce();
+
+console.log("\n=== ACT IV: Enraged in Julong ===");
+sharpshooter.introduce();
+sharpshooter.precisionShot(fighter);
+sharpshooter.precisionShot(fighter);
+sharpshooter.precisionShot(fighter);
+sharpshooter.precisionShot(fighter);
+sharpshooter.takeCover();
+sharpshooter.reload();
+sharpshooter.gotattacked(fighter.attack);
+sharpshooter.statusNow();
+console.log("\n[Marty ran to Thomas and locked him in the arm]");
+sharpshooter.gotattacked(fighter.attack);
+sharpshooter.gotattacked(fighter.attack);
+sharpshooter.statusNow();
+console.log("\n[Marty faded to the darkness of Julong]");
