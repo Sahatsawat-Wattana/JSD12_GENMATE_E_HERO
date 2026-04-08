@@ -13,19 +13,19 @@ class Hero {
   }
   shiftMultiverse(anothermultiverse) {
     console.log(
-      `I'm from ${this.multiverse}. Go to ${anothermultiverse} to save the days.`,
+      `${this.name} is from ${this.multiverse}. Go to ${anothermultiverse} to save the days.`,
     );
     this.multiverse = anothermultiverse;
   }
   gotattacked(attack) {
     this.hp -= attack;
-    console.log(`I got attacked ${attack} hp. I currently have ${this.hp} hp.`);
+    console.log(`${this.name} got attacked ${attack} hp. I currently have ${this.hp} hp.`);
   }
   statusNow() {
     if (this.hp <= 0) {
-      console.log("I'm dead");
+      console.log(`${this.name} is dead`);
     } else {
-      console.log(`I'm alive. I currently have ${this.hp} hp. `);
+      console.log(`${this.name} is alive. I currently have ${this.hp} hp. `);
     }
   }
 }
@@ -103,9 +103,9 @@ class Fighter extends Hero {
     this.attack *= 2;
     this.hp += 10;
     console.log(
-      `Hehe! Right now I'm buffed. My attack is twice! ${this.attack} attack Are you ready!!`,
+      `Hehe! Right now ${this.name} is buffed. My attack is twice! ${this.attack} attack Are you ready!!`,
     );
-    console.log(`I'm stronger now. My hp is ${this.hp}`);
+    console.log(`${this.name} is stronger now. My hp is ${this.hp}`);
   }
   debuffpower() {
     this.attack /= 2;
