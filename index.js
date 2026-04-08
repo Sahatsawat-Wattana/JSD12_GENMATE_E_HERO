@@ -19,25 +19,26 @@ class Hero {
   }
   gotattacked(attack) {
     this.hp -= attack;
-    console.log(`${this.name} got attacked ${attack} hp. I currently have ${this.hp} hp.`);
+    console.log(
+      `${this.name} got attacked ${attack} hp. I currently have ${this.hp} hp.`,
+    );
   }
   statusNow() {
     if (this.hp <= 0) {
       console.log(`${this.name} is dead`);
     } else {
-      console.log(`${this.name} is alive. I currently have ${this.hp} hp. `);
+      console.log(`${this.name} is alive. ${this.name} currently have ${this.hp} hp. `);
     }
   }
 }
 
-class IronTank {
-  constructor(name, hp, armor) {
-    this.name = name;
-    this.hp = hp;
+class IronTank extends Hero {
+  constructor(name, gender, multiverse, hp, attack, armor) {
+    super(name, gender, multiverse, hp, attack);
     this.armor = armor;
   }
 
-  receiveDamage(power) {
+  gotattacked(power) {
     if (this.armor > 0) {
       const oldArmor = this.armor;
       this.armor -= power;
@@ -58,6 +59,7 @@ class IronTank {
     }
   }
 }
+
 class Mage extends Hero {
   constructor(name, gender, multiverse, hp, attack, mana) {
     super(name, gender, multiverse, hp, attack);
@@ -141,21 +143,6 @@ class Assassin extends Hero {
     );
   }
 
-  attackEnemy(target) {
-    let finalDamage = this.attack;
-    let isCrit = Math.random() < this.criticalChance;
-
-    if (this.isHidden) {
-      finalDamage *= 2.5;
-      this.isHidden = false;
-      console.log("SURPRISE ATTACK!");
-    } else if (isCrit) {
-      finalDamage *= 1.5;
-      console.log("CRITICAL HIT!");
-    }
-
-    console.log(`${this.name} for ${finalDamage} damage!`);
-  }
   statusNow() {
     super.statusNow();
     if (this.hp > 0 && this.isHidden) {
@@ -164,19 +151,41 @@ class Assassin extends Hero {
   }
 }
 
-//main
+// ==========================================
+// MAIN BATTLE SEQUENCE
+// ==========================================
+
+
 const mage = new Mage("Nami", "Female", "Enchanted Forest", 80, 15, 100);
 const fighter = new Fighter("Marty", "Male", "Julong", 200, 100);
+const tank = new IronTank("Aegis","Male","Edoha", 500, 150,200);
+const assassin = new Assassin("Viper", "Female", "Edoha", 120, 100);
+console.log("\n=== ACT I: THE BRAWL IN THE VOID ===");
 mage.introduce();
 fighter.introduce();
 mage.gotattacked(fighter.attack);
 fighter.gotattacked(mage.attack);
 mage.statusNow();
 fighter.statusNow();
+
+console.log("\n=== ACT II: OVERKILL ===");
 fighter.buffpower();
 mage.gotattacked(fighter.attack);
 mage.statusNow();
 fighter.debuffpower();
 fighter.statusNow();
+
+console.log("\n=== ACT III: WELCOME TO EDOHA ===");
 fighter.shiftMultiverse("Edoha");
 fighter.introduce();
+tank.introduce();
+assassin.introduce()
+console.log("\n[Aegis blocks the path! Marty attacks!]");
+tank.gotattacked(fighter.attack);
+tank.statusNow()
+console.log("\n[Viper prepares to strike!]");
+assassin.hideInShadows();
+console.log("\n[Marty throws a wild punch into the dark!]");
+assassin.gotattacked(fighter.attack);
+assassin.statusNow();
+
