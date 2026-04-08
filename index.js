@@ -29,7 +29,7 @@ class Hero {
   }
 }
 
-///// Magic /////
+///// Magic ////
 
 class Mage extends Hero {
   constructor(name, gender, multiverse, hp, attack, mana) {
@@ -90,3 +90,20 @@ mage.gotattacked(100); // โดนโจมตีหนักจน HP หม�
 
 console.log("--- The Aftermath ---");
 mage.statusNow();
+
+class Fighter extends Hero {
+  constructor(name, gender, multiverse, hp, attack) {
+    super(name, gender, multiverse, hp, attack);
+  }
+    buffpower() {
+        this.attack *= 2;
+        this.hp += 10;
+        console.log(`Hehe! Right now I'm buffed. My attack is twice! ${this.attack} attack Are you ready!!`);
+        console.log(`I'm stronger now. My hp is ${this.hp}`)
+    }
+    debuffpower() {
+        this.attack /= 2;
+        console.log(`Oh no! my superpower has gone to half! just ${this.attack} attack`);
+    }
+}
+
