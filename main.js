@@ -1,0 +1,69 @@
+import Mage from "./mage.js";
+import Fighter from "./fighter.js"
+import IronTank from "./tank.js"
+import Assassin from "./assasin.js"
+import Sharpshooter from "./sharpshooter.js"
+
+
+const mage = new Mage("Nami", "Female", "Enchanted Forest", 80, 15, 100);
+const fighter = new Fighter("Marty", "Male", "Julong", 200, 100);
+const tank = new IronTank("Aegis", "Male", "Edoha", 500, 150, 200);
+const assassin = new Assassin("Viper", "Female", "Edoha", 120, 100);
+const sharpshooter = new Sharpshooter("Thomas", "Male", "Julong", 140, 10, 3);
+console.log("\n=== ACT I: THE BRAWL IN THE VOID ===");
+mage.introduce();
+fighter.introduce();
+mage.gotattacked(fighter.attack);
+fighter.gotattacked(mage.attack);
+mage.statusNow();
+fighter.statusNow();
+
+console.log("\n=== ACT II: OVERKILL ===");
+fighter.buffpower();
+mage.gotattacked(fighter.attack);
+mage.statusNow();
+fighter.debuffpower();
+fighter.statusNow();
+
+console.log("\n=== ACT III: WELCOME TO EDOHA ===");
+fighter.shiftMultiverse("Edoha");
+fighter.introduce();
+tank.introduce();
+assassin.introduce();
+console.log("\n[Aegis blocks the path! Marty attacks!]");
+tank.gotattacked(fighter.attack);
+tank.statusNow();
+tank.gotattacked(fighter.attack);
+tank.statusNow();
+tank.gotattacked(fighter.attack);
+tank.statusNow();
+fighter.buffpower();
+tank.gotattacked(fighter.attack);
+tank.statusNow();
+fighter.debuffpower();
+fighter.statusNow();
+console.log("\n[Viper prepares to strike!]");
+assassin.hideInShadows();
+console.log("\n[Marty throws a wild punch into the dark!]");
+assassin.gotattacked(fighter.attack);
+assassin.statusNow();
+fighter.statusNow();
+console.log("\n[Marty exhuasted!!]");
+fighter.shiftMultiverse("Julong");
+fighter.introduce();
+
+console.log("\n=== ACT IV: Enraged in Julong ===");
+sharpshooter.introduce();
+sharpshooter.precisionShot(fighter);
+sharpshooter.precisionShot(fighter);
+sharpshooter.precisionShot(fighter);
+sharpshooter.precisionShot(fighter);
+sharpshooter.takeCover();
+sharpshooter.reload();
+sharpshooter.gotattacked(fighter.attack);
+sharpshooter.statusNow();
+console.log("\n[Marty ran to Thomas and locked him in the arm]");
+sharpshooter.gotattacked(fighter.attack);
+sharpshooter.gotattacked(fighter.attack);
+sharpshooter.statusNow();
+console.log("\n[Marty faded to the darkness of Julong]");
