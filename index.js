@@ -183,9 +183,23 @@ assassin.introduce()
 console.log("\n[Aegis blocks the path! Marty attacks!]");
 tank.gotattacked(fighter.attack);
 tank.statusNow()
+tank.gotattacked(fighter.attack);
+tank.statusNow();
+tank.gotattacked(fighter.attack);
+tank.statusNow();
+fighter.buffpower();
+tank.gotattacked(fighter.attack);
+tank.statusNow();
+fighter.debuffpower();
+fighter.statusNow();
 console.log("\n[Viper prepares to strike!]");
 assassin.hideInShadows();
 console.log("\n[Marty throws a wild punch into the dark!]");
 assassin.gotattacked(fighter.attack);
 assassin.statusNow();
-
+assassin.gotattacked(fighter.attack);
+assassin.statusNow();
+fighter.statusNow();
+console.log("\n[Marty exhuasted!!]")
+fighter.shiftMultiverse("Julong")
+fighter.introduce();
